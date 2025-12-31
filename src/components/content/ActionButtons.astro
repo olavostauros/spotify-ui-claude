@@ -1,0 +1,30 @@
+---
+// Action buttons row for playlists/albums (play, like, more options)
+import Icon from '../Icon.astro';
+---
+
+<div class="flex items-center gap-4 px-6 py-6 bg-gradient-to-b from-black from-10% to-transparent">
+  <!-- Play Button -->
+  <button
+    class="w-14 h-14 bg-spotify-green rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-xl"
+    aria-label="Play"
+  >
+    <Icon name="play" class="w-6 h-6 text-black ml-1" />
+  </button>
+
+  <!-- Like Button -->
+  <button
+    class="text-gray-400 hover:text-white transition-colors"
+    aria-label="Save to Your Library"
+  >
+    <Icon name="heart" class="w-8 h-8" />
+  </button>
+
+  <!-- More Options Button -->
+  <button
+    class="text-gray-400 hover:text-white transition-colors"
+    aria-label="More options"
+  >
+    <Icon name="more-horizontal" class="w-8 h-8" />
+  </button>
+</div>

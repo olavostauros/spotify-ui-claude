@@ -1,0 +1,53 @@
+---
+import AppLayout from '../components/layout/AppLayout.astro';
+import FilterPills from '../components/library/FilterPills.astro';
+import LibraryCard from '../components/library/LibraryCard.astro';
+import ViewToggle from '../components/library/ViewToggle.astro';
+import Icon from '../components/Icon.astro';
+
+const libraryItems = [
+  { type: 'playlist' as const, title: 'Liked Songs', subtitle: '127 songs', image: 'https://picsum.photos/seed/liked/300/300', href: '/playlist/1' },
+  { type: 'playlist' as const, title: 'Chill Vibes', subtitle: '50 songs', image: 'https://picsum.photos/seed/chill/300/300', href: '/playlist/2' },
+  { type: 'playlist' as const, title: 'Workout Motivation', subtitle: '75 songs', image: 'https://picsum.photos/seed/workout/300/300', href: '/playlist/3' },
+  { type: 'album' as const, title: 'After Hours', subtitle: 'The Weeknd', image: 'https://picsum.photos/seed/album1/300/300', href: '/album/1' },
+  { type: 'album' as const, title: 'Future Nostalgia', subtitle: 'Dua Lipa', image: 'https://picsum.photos/seed/album2/300/300', href: '/album/2' },
+  { type: 'artist' as const, title: 'The Weeknd', subtitle: 'Artist', image: 'https://picsum.photos/seed/artist1/300/300', href: '/artist/1' },
+  { type: 'artist' as const, title: 'Dua Lipa', subtitle: 'Artist', image: 'https://picsum.photos/seed/artist2/300/300', href: '/artist/2' },
+  { type: 'playlist' as const, title: 'Daily Mix 1', subtitle: '30 songs', image: 'https://picsum.photos/seed/daily1/300/300', href: '/playlist/1' },
+  { type: 'album' as const, title: 'SOUR', subtitle: 'Olivia Rodrigo', image: 'https://picsum.photos/seed/album3/300/300', href: '/album/3' },
+  { type: 'artist' as const, title: 'Ed Sheeran', subtitle: 'Artist', image: 'https://picsum.photos/seed/artist3/300/300', href: '/artist/3' },
+];
+---
+
+<AppLayout>
+  <div class="p-6">
+    <!-- Header with view toggle and search -->
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-4">
+        <Icon name="library" class="w-6 h-6 text-gray-400" />
+        <h1 class="text-2xl font-bold text-white">Your Library</h1>
+      </div>
+      <ViewToggle activeView="list" />
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="mb-6">
+      <FilterPills activeFilter="all" />
+    </div>
+
+    <!-- Sort dropdown (visual only) -->
+    <div class="mb-4">
+      <button class="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors">
+        <span>Recents</span>
+        <Icon name="chevron-down" class="w-4 h-4" />
+      </button>
+    </div>
+
+    <!-- Library Items -->
+    <div class="space-y-2">
+      {libraryItems.map((item) => (
+        <LibraryCard {...item} />
+      ))}
+    </div>
+  </div>
+</AppLayout>

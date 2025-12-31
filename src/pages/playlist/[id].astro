@@ -1,0 +1,73 @@
+---
+import AppLayout from '../../components/layout/AppLayout.astro';
+import ContentHeader from '../../components/content/ContentHeader.astro';
+import ActionButtons from '../../components/content/ActionButtons.astro';
+import TrackTable from '../../components/content/TrackTable.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+  ];
+}
+
+const { id } = Astro.params;
+
+// Mock playlist data based on ID
+const playlists: Record<string, any> = {
+  '1': {
+    title: 'Chill Vibes',
+    description: 'Relax and unwind with these calm tracks',
+    image: 'https://picsum.photos/seed/playlist1/300/300',
+    owner: 'Spotify',
+    metadata: '1,234,567 likes • 50 songs, 2 hr 34 min',
+  },
+  '2': {
+    title: 'Daily Mix 1',
+    description: 'The Weeknd, Dua Lipa, Ariana Grande and more',
+    image: 'https://picsum.photos/seed/playlist2/300/300',
+    owner: 'Spotify',
+    metadata: '892,543 likes • 30 songs, 1 hr 52 min',
+  },
+  '3': {
+    title: 'Workout Motivation',
+    description: 'Get pumped up with high-energy tracks',
+    image: 'https://picsum.photos/seed/playlist3/300/300',
+    owner: 'Spotify',
+    metadata: '2,456,789 likes • 75 songs, 3 hr 45 min',
+  },
+};
+
+const playlist = playlists[id as string] || playlists['1'];
+
+const tracks = [
+  { number: 1, title: 'Blinding Lights', artist: 'The Weeknd', album: 'After Hours', dateAdded: '5 days ago', duration: '3:20' },
+  { number: 2, title: 'Levitating', artist: 'Dua Lipa', album: 'Future Nostalgia', dateAdded: '1 week ago', duration: '3:23' },
+  { number: 3, title: 'Save Your Tears', artist: 'The Weeknd', album: 'After Hours', dateAdded: '2 weeks ago', duration: '3:35' },
+  { number: 4, title: 'Good 4 U', artist: 'Olivia Rodrigo', album: 'SOUR', dateAdded: '2 weeks ago', duration: '2:58' },
+  { number: 5, title: 'Peaches', artist: 'Justin Bieber', album: 'Justice', dateAdded: '3 weeks ago', duration: '3:18' },
+  { number: 6, title: 'Shivers', artist: 'Ed Sheeran', album: '=', dateAdded: '1 month ago', duration: '3:27' },
+  { number: 7, title: 'Stay', artist: 'The Kid LAROI, Justin Bieber', album: 'F*ck Love 3', dateAdded: '1 month ago', duration: '2:21' },
+  { number: 8, title: 'Heat Waves', artist: 'Glass Animals', album: 'Dreamland', dateAdded: '1 month ago', duration: '3:58' },
+  { number: 9, title: 'Kiss Me More', artist: 'Doja Cat ft. SZA', album: 'Planet Her', dateAdded: '2 months ago', duration: '3:28' },
+  { number: 10, title: 'Montero', artist: 'Lil Nas X', album: 'MONTERO', dateAdded: '2 months ago', duration: '2:17' },
+];
+---
+
+<AppLayout>
+  <ContentHeader
+    type="playlist"
+    image={playlist.image}
+    title={playlist.title}
+    description={playlist.description}
+    owner={playlist.owner}
+    metadata={playlist.metadata}
+  />
+
+  <ActionButtons />
+
+  <TrackTable tracks={tracks} showAlbum={true} showDateAdded={true} />
+
+  <div class="h-32"></div>
+</AppLayout>

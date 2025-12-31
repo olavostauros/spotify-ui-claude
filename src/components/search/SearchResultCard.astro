@@ -1,0 +1,37 @@
+---
+// Generic search result card
+import Icon from '../Icon.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  image: string;
+  type: 'artist' | 'album' | 'playlist';
+  href?: string;
+}
+
+const { title, subtitle, image, type, href = '#' } = Astro.props;
+const isArtist = type === 'artist';
+---
+
+<a
+  href={href}
+  class="bg-spotify-light-gray p-4 rounded-lg hover:bg-opacity-80 transition-all group"
+>
+  <div class="relative mb-4">
+    <img
+      src={image}
+      alt={title}
+      class={`w-full aspect-square object-cover mb-4 ${isArtist ? 'rounded-full' : 'rounded'}`}
+    />
+    <button
+      class="absolute bottom-2 right-2 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all shadow-xl"
+      aria-label="Play"
+    >
+      <Icon name="play" class="w-5 h-5 text-black ml-0.5" />
+    </button>
+  </div>
+
+  <h3 class="text-white font-semibold truncate mb-1">{title}</h3>
+  <p class="text-sm text-gray-400 truncate capitalize">{type} • {subtitle}</p>
+</a>

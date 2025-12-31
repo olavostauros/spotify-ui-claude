@@ -1,0 +1,80 @@
+---
+// Queue panel that slides in from right
+import Icon from '../Icon.astro';
+
+const queue = [
+  { title: 'Blinding Lights', artist: 'The Weeknd', image: 'https://picsum.photos/seed/q1/40/40' },
+  { title: 'Levitating', artist: 'Dua Lipa', image: 'https://picsum.photos/seed/q2/40/40' },
+  { title: 'Save Your Tears', artist: 'The Weeknd', image: 'https://picsum.photos/seed/q3/40/40' },
+  { title: 'Good 4 U', artist: 'Olivia Rodrigo', image: 'https://picsum.photos/seed/q4/40/40' },
+];
+---
+
+<aside
+  id="queue-panel"
+  class="hidden fixed top-0 right-0 w-96 h-full bg-spotify-black border-l border-gray-800 z-50 overflow-y-auto"
+>
+  <div class="p-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-white font-semibold text-lg">Queue</h2>
+      <button
+        id="close-queue"
+        class="text-gray-400 hover:text-white transition-colors"
+        aria-label="Close queue"
+      >
+        <Icon name="x" class="w-5 h-5" />
+      </button>
+    </div>
+
+    <!-- Now Playing -->
+    <section class="mb-6">
+      <h3 class="text-sm text-gray-400 font-semibold mb-3">Now Playing</h3>
+      <div class="flex items-center gap-3 p-2 rounded bg-spotify-light-gray">
+        <img src="https://picsum.photos/seed/np/40/40" alt="Now playing" class="w-10 h-10 rounded" />
+        <div class="flex-1 min-w-0">
+          <div class="text-white text-sm truncate">Starboy</div>
+          <div class="text-gray-400 text-xs truncate">The Weeknd</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next Up -->
+    <section>
+      <h3 class="text-sm text-gray-400 font-semibold mb-3">Next Up</h3>
+      <div class="space-y-2">
+        {queue.map((item) => (
+          <div class="flex items-center gap-3 p-2 rounded hover:bg-white hover:bg-opacity-5 group">
+            <img src={item.image} alt={item.title} class="w-10 h-10 rounded" />
+            <div class="flex-1 min-w-0">
+              <div class="text-white text-sm truncate">{item.title}</div>
+              <div class="text-gray-400 text-xs truncate">{item.artist}</div>
+            </div>
+            <button class="opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Remove">
+              <Icon name="x" class="w-4 h-4 text-gray-400 hover:text-white" />
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</aside>
+
+<script>
+  // Toggle queue panel
+  document.addEventListener('DOMContentLoaded', () => {
+    const panel = document.getElementById('queue-panel');
+    const closeButton = document.getElementById('close-queue');
+
+    if (closeButton && panel) {
+      closeButton.addEventListener('click', () => {
+        panel.classList.add('hidden');
+      });
+    }
+
+    // Global function to open queue (can be called from other components)
+    (window as any).openQueue = () => {
+      panel?.classList.remove('hidden');
+    };
+  });
+</script>

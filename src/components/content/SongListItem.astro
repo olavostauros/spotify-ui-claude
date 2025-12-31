@@ -1,0 +1,47 @@
+---
+// Song list item for search results and playlists
+import Icon from '../Icon.astro';
+
+interface Props {
+  number: number;
+  title: string;
+  artist: string;
+  album?: string;
+  duration: string;
+  image?: string;
+  showAlbum?: boolean;
+}
+
+const { number, title, artist, album, duration, image, showAlbum = true } = Astro.props;
+---
+
+<div
+  class="grid grid-cols-[16px_4fr_2fr_minmax(120px,1fr)] md:grid-cols-[16px_6fr_4fr_3fr_minmax(120px,1fr)] gap-4 px-4 py-2 rounded hover:bg-white hover:bg-opacity-10 group items-center"
+>
+  <!-- Number / Play Button -->
+  <div class="flex items-center justify-center">
+    <span class="text-gray-400 text-sm group-hover:hidden">{number}</span>
+    <button class="hidden group-hover:block" aria-label="Play">
+      <Icon name="play" class="w-4 h-4 text-white" />
+    </button>
+  </div>
+
+  <!-- Title & Artist -->
+  <div class="flex items-center gap-3 min-w-0">
+    {image && (
+      <img src={image} alt={title} class="w-10 h-10 rounded" />
+    )}
+    <div class="min-w-0">
+      <div class="text-white text-sm truncate">{title}</div>
+      <div class="text-gray-400 text-sm truncate">{artist}</div>
+    </div>
+  </div>
+
+  <!-- Album (hidden on mobile) -->
+  {showAlbum && album && (
+    <div class="hidden md:block text-gray-400 text-sm truncate">{album}</div>
+  )}
+
+  <!-- Duration -->
+  <div class="text-gray-400 text-sm text-right">{duration}</div>
+</div>

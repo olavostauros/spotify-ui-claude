@@ -1,0 +1,70 @@
+---
+// User account dropdown menu
+import Icon from '../Icon.astro';
+---
+
+<div
+  id="user-menu"
+  class="hidden absolute top-16 right-6 bg-spotify-light-gray rounded shadow-lg py-1 min-w-[200px] z-50"
+  role="menu"
+  aria-hidden="true"
+>
+  <a
+    href="#"
+    class="flex items-center gap-3 px-4 py-3 text-sm text-white hover:bg-white hover:bg-opacity-10 transition-colors"
+    role="menuitem"
+  >
+    <Icon name="user" class="w-4 h-4" />
+    <span>Profile</span>
+  </a>
+  <a
+    href="#"
+    class="flex items-center gap-3 px-4 py-3 text-sm text-white hover:bg-white hover:bg-opacity-10 transition-colors"
+    role="menuitem"
+  >
+    <Icon name="settings" class="w-4 h-4" />
+    <span>Settings</span>
+  </a>
+  <div class="border-t border-gray-700 my-1"></div>
+  <a
+    href="#"
+    class="flex items-center gap-3 px-4 py-3 text-sm text-white hover:bg-white hover:bg-opacity-10 transition-colors"
+    role="menuitem"
+  >
+    <Icon name="log-out" class="w-4 h-4" />
+    <span>Log out</span>
+  </a>
+</div>
+
+<script>
+  // Toggle user menu on button click
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.getElementById('user-menu-button');
+    const menu = document.getElementById('user-menu');
+
+    if (menuButton && menu) {
+      menuButton.addEventListener('click', () => {
+        const isHidden = menu.classList.contains('hidden');
+
+        if (isHidden) {
+          menu.classList.remove('hidden');
+          menuButton.setAttribute('aria-expanded', 'true');
+          menu.setAttribute('aria-hidden', 'false');
+        } else {
+          menu.classList.add('hidden');
+          menuButton.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!menuButton.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+          menu.classList.add('hidden');
+          menuButton.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  });
+</script>

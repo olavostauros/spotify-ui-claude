@@ -1,0 +1,39 @@
+---
+// Friend Activity sidebar (desktop only)
+const friends = [
+  { name: 'Emma Wilson', song: 'Starboy', artist: 'The Weeknd', time: '2 hours ago' },
+  { name: 'James Rodriguez', song: 'Levitating', artist: 'Dua Lipa', time: '5 hours ago' },
+  { name: 'Sarah Chen', song: 'Good 4 U', artist: 'Olivia Rodrigo', time: '1 day ago' },
+  { name: 'Michael Brown', song: 'Peaches', artist: 'Justin Bieber', time: '2 days ago' },
+  { name: 'Olivia Taylor', song: 'Shivers', artist: 'Ed Sheeran', time: '3 days ago' },
+  { name: 'David Kim', song: 'Stay', artist: 'The Kid LAROI', time: '4 days ago' },
+];
+---
+
+<aside class="hidden xl:block w-80 bg-spotify-black border-l border-gray-800 overflow-y-auto">
+  <div class="p-6">
+    <h2 class="text-white font-semibold mb-6">Friend Activity</h2>
+
+    <div class="space-y-4">
+      {friends.map((friend) => (
+        <div class="flex items-start gap-3 group">
+          <div class="w-10 h-10 rounded-full bg-spotify-light-gray flex-shrink-0 flex items-center justify-center">
+            <span class="text-white text-sm font-semibold">{friend.name.charAt(0)}</span>
+          </div>
+
+          <div class="flex-1 min-w-0">
+            <div class="text-sm text-white font-semibold truncate">{friend.name}</div>
+            <div class="text-sm text-gray-400 truncate">{friend.song}</div>
+            <div class="text-xs text-gray-500 truncate">{friend.artist} • {friend.time}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-6 pt-6 border-t border-gray-800">
+      <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">
+        See all
+      </a>
+    </div>
+  </div>
+</aside>

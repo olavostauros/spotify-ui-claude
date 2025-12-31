@@ -1,0 +1,43 @@
+---
+// Filter pills for library page
+interface Props {
+  activeFilter?: string;
+}
+
+const { activeFilter = 'all' } = Astro.props;
+
+const filters = ['Playlists', 'Podcasts', 'Artists', 'Albums'];
+---
+
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+  <button
+    class={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-colors ${
+      activeFilter === 'all'
+        ? 'bg-white text-black'
+        : 'bg-spotify-light-gray text-white hover:bg-opacity-80'
+    }`}
+  >
+    All
+  </button>
+  {filters.map((filter) => (
+    <button
+      class={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-colors ${
+        activeFilter === filter.toLowerCase()
+          ? 'bg-white text-black'
+          : 'bg-spotify-light-gray text-white hover:bg-opacity-80'
+      }`}
+    >
+      {filter}
+    </button>
+  ))}
+</div>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

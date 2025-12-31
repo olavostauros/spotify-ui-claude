@@ -1,0 +1,18 @@
+---
+// Category card for Browse All section
+interface Props {
+  name: string;
+  color: string;
+  href?: string;
+}
+
+const { name, color, href = '#' } = Astro.props;
+---
+
+<a
+  href={href}
+  class={`${color} rounded-lg p-4 aspect-square flex items-end relative overflow-hidden group hover:scale-105 transition-transform`}
+>
+  <h3 class="text-white font-semibold text-xl z-10">{name}</h3>
+  <div class="absolute top-4 right-4 w-20 h-20 bg-black bg-opacity-20 rounded-lg transform rotate-25 group-hover:rotate-12 transition-transform"></div>
+</a>

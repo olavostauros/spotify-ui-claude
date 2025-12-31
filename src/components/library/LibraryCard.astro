@@ -1,0 +1,38 @@
+---
+// Card for library items (playlists, albums, artists, podcasts)
+import Icon from '../Icon.astro';
+
+interface Props {
+  type: 'playlist' | 'album' | 'artist' | 'podcast';
+  title: string;
+  subtitle: string;
+  image: string;
+  href?: string;
+}
+
+const { type, title, subtitle, image, href = '#' } = Astro.props;
+const isArtist = type === 'artist';
+---
+
+<a
+  href={href}
+  class="flex items-center gap-4 p-2 rounded hover:bg-white hover:bg-opacity-10 transition-colors group"
+>
+  <img
+    src={image}
+    alt={title}
+    class={`w-16 h-16 object-cover flex-shrink-0 ${isArtist ? 'rounded-full' : 'rounded'}`}
+  />
+
+  <div class="flex-1 min-w-0">
+    <h3 class="text-white font-semibold truncate">{title}</h3>
+    <p class="text-sm text-gray-400 truncate capitalize">{type} • {subtitle}</p>
+  </div>
+
+  <button
+    class="w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-90 group-hover:scale-100 transition-all shadow-xl flex-shrink-0"
+    aria-label="Play"
+  >
+    <Icon name="play" class="w-5 h-5 text-black ml-0.5" />
+  </button>
+</a>

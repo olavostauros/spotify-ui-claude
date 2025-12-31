@@ -1,0 +1,38 @@
+---
+// Top navigation bar with back/forward buttons and user menu
+import Icon from '../Icon.astro';
+---
+
+<nav class="sticky top-0 z-10 bg-spotify-gray px-6 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-4">
+    <!-- Back/Forward Navigation -->
+    <button
+      class="w-8 h-8 rounded-full bg-black bg-opacity-70 flex items-center justify-center text-white hover:bg-opacity-80 transition-colors"
+      aria-label="Go back"
+    >
+      <Icon name="chevron-left" class="w-5 h-5" />
+    </button>
+    <button
+      class="w-8 h-8 rounded-full bg-black bg-opacity-70 flex items-center justify-center text-white hover:bg-opacity-80 transition-colors"
+      aria-label="Go forward"
+    >
+      <Icon name="chevron-right" class="w-5 h-5" />
+    </button>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <!-- User Menu Button -->
+    <button
+      id="user-menu-button"
+      class="flex items-center gap-2 bg-black bg-opacity-70 hover:bg-opacity-80 rounded-full px-2 py-1 transition-colors"
+      aria-label="Account menu"
+      aria-expanded="false"
+    >
+      <div class="w-7 h-7 rounded-full bg-spotify-light-gray flex items-center justify-center">
+        <Icon name="user" class="w-4 h-4 text-white" />
+      </div>
+      <span class="text-white text-sm font-semibold pr-2 hidden md:inline">User</span>
+      <Icon name="chevron-down" class="w-4 h-4 text-white hidden md:block" />
+    </button>
+  </div>
+</nav>

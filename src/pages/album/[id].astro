@@ -1,0 +1,77 @@
+---
+import AppLayout from '../../components/layout/AppLayout.astro';
+import ContentHeader from '../../components/content/ContentHeader.astro';
+import ActionButtons from '../../components/content/ActionButtons.astro';
+import TrackTable from '../../components/content/TrackTable.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+  ];
+}
+
+const { id } = Astro.params;
+
+// Mock album data based on ID
+const albums: Record<string, any> = {
+  '1': {
+    title: 'After Hours',
+    description: '2020',
+    image: 'https://picsum.photos/seed/album1/300/300',
+    owner: 'The Weeknd',
+    metadata: '14 songs, 56 min 16 sec',
+  },
+  '2': {
+    title: 'Future Nostalgia',
+    description: '2020',
+    image: 'https://picsum.photos/seed/album2/300/300',
+    owner: 'Dua Lipa',
+    metadata: '11 songs, 37 min 6 sec',
+  },
+  '3': {
+    title: 'SOUR',
+    description: '2021',
+    image: 'https://picsum.photos/seed/album3/300/300',
+    owner: 'Olivia Rodrigo',
+    metadata: '11 songs, 34 min 46 sec',
+  },
+};
+
+const album = albums[id as string] || albums['1'];
+
+const tracks = [
+  { number: 1, title: 'Alone Again', artist: album.owner, duration: '4:10' },
+  { number: 2, title: 'Too Late', artist: album.owner, duration: '3:59' },
+  { number: 3, title: 'Hardest To Love', artist: album.owner, duration: '3:31' },
+  { number: 4, title: 'Scared To Live', artist: album.owner, duration: '3:10' },
+  { number: 5, title: 'Snowchild', artist: album.owner, duration: '4:07' },
+  { number: 6, title: 'Escape From LA', artist: album.owner, duration: '5:55' },
+  { number: 7, title: 'Heartless', artist: album.owner, duration: '3:18' },
+  { number: 8, title: 'Faith', artist: album.owner, duration: '4:43' },
+  { number: 9, title: 'Blinding Lights', artist: album.owner, duration: '3:20' },
+  { number: 10, title: 'In Your Eyes', artist: album.owner, duration: '3:57' },
+  { number: 11, title: 'Save Your Tears', artist: album.owner, duration: '3:35' },
+  { number: 12, title: 'Repeat After Me', artist: album.owner, duration: '3:15' },
+  { number: 13, title: 'After Hours', artist: album.owner, duration: '6:01' },
+  { number: 14, title: 'Until I Bleed Out', artist: album.owner, duration: '3:10' },
+];
+---
+
+<AppLayout>
+  <ContentHeader
+    type="album"
+    image={album.image}
+    title={album.title}
+    description={album.description}
+    owner={album.owner}
+    metadata={album.metadata}
+  />
+
+  <ActionButtons />
+
+  <TrackTable tracks={tracks} showAlbum={false} showDateAdded={false} />
+
+  <div class="h-32"></div>
+</AppLayout>

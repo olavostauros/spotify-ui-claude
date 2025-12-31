@@ -1,0 +1,43 @@
+---
+import AppLayout from '../components/layout/AppLayout.astro';
+import SearchBar from '../components/search/SearchBar.astro';
+import CategoryCard from '../components/search/CategoryCard.astro';
+
+const categories = [
+  { name: 'Podcasts', color: 'bg-purple-600' },
+  { name: 'Music', color: 'bg-pink-600' },
+  { name: 'Live Events', color: 'bg-blue-600' },
+  { name: 'Made For You', color: 'bg-indigo-600' },
+  { name: 'New Releases', color: 'bg-red-600' },
+  { name: 'Pop', color: 'bg-green-600' },
+  { name: 'Hip-Hop', color: 'bg-orange-600' },
+  { name: 'Rock', color: 'bg-yellow-600' },
+  { name: 'Latin', color: 'bg-teal-600' },
+  { name: 'Workout', color: 'bg-cyan-600' },
+  { name: 'Chill', color: 'bg-blue-400' },
+  { name: 'Jazz', color: 'bg-purple-400' },
+  { name: 'Country', color: 'bg-amber-600' },
+  { name: 'R&B', color: 'bg-rose-600' },
+  { name: 'Electronic', color: 'bg-fuchsia-600' },
+];
+---
+
+<AppLayout>
+  <div class="p-6">
+    <!-- Search Bar -->
+    <div class="max-w-md mb-6">
+      <SearchBar />
+    </div>
+
+    <!-- Browse All Section -->
+    <section>
+      <h2 class="text-white text-2xl font-bold mb-4">Browse all</h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {categories.map((category) => (
+          <CategoryCard name={category.name} color={category.color} />
+        ))}
+      </div>
+    </section>
+  </div>
+</AppLayout>

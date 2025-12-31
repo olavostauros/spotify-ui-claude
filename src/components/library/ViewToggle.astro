@@ -1,0 +1,33 @@
+---
+// Toggle between grid and list view
+import Icon from '../Icon.astro';
+
+interface Props {
+  activeView?: 'grid' | 'list';
+}
+
+const { activeView = 'list' } = Astro.props;
+---
+
+<div class="flex gap-2">
+  <button
+    class={`p-2 rounded transition-colors ${
+      activeView === 'grid'
+        ? 'text-white'
+        : 'text-gray-400 hover:text-white'
+    }`}
+    aria-label="Grid view"
+  >
+    <Icon name="grid" class="w-5 h-5" />
+  </button>
+  <button
+    class={`p-2 rounded transition-colors ${
+      activeView === 'list'
+        ? 'text-white'
+        : 'text-gray-400 hover:text-white'
+    }`}
+    aria-label="List view"
+  >
+    <Icon name="list-music" class="w-5 h-5" />
+  </button>
+</div>

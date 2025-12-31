@@ -1,0 +1,68 @@
+---
+// Track list table for playlists and albums
+import Icon from '../Icon.astro';
+
+interface Track {
+  number: number;
+  title: string;
+  artist: string;
+  album?: string;
+  dateAdded?: string;
+  duration: string;
+}
+
+interface Props {
+  tracks: Track[];
+  showAlbum?: boolean;
+  showDateAdded?: boolean;
+}
+
+const { tracks, showAlbum = true, showDateAdded = false } = Astro.props;
+---
+
+<div class="px-6">
+  <!-- Table Header -->
+  <div class="grid grid-cols-[16px_4fr_2fr_minmax(120px,1fr)] md:grid-cols-[16px_6fr_4fr_3fr_minmax(120px,1fr)] gap-4 px-4 py-2 border-b border-gray-800 text-sm text-gray-400 mb-2">
+    <div class="text-center">#</div>
+    <div>TITLE</div>
+    {showAlbum && <div class="hidden md:block">ALBUM</div>}
+    {showDateAdded && <div class="hidden md:block">DATE ADDED</div>}
+    <div class="flex items-center justify-end">
+      <Icon name="clock" class="w-4 h-4" />
+    </div>
+  </div>
+
+  <!-- Track List -->
+  <div class="space-y-1">
+    {tracks.map((track) => (
+      <div class="grid grid-cols-[16px_4fr_2fr_minmax(120px,1fr)] md:grid-cols-[16px_6fr_4fr_3fr_minmax(120px,1fr)] gap-4 px-4 py-3 rounded hover:bg-white hover:bg-opacity-10 group items-center">
+        <!-- Number / Play Button -->
+        <div class="flex items-center justify-center">
+          <span class="text-gray-400 text-sm group-hover:hidden">{track.number}</span>
+          <button class="hidden group-hover:block" aria-label="Play">
+            <Icon name="play" class="w-4 h-4 text-white" />
+          </button>
+        </div>
+
+        <!-- Title & Artist -->
+        <div class="min-w-0">
+          <div class="text-white text-sm truncate">{track.title}</div>
+          <div class="text-gray-400 text-sm truncate">{track.artist}</div>
+        </div>
+
+        <!-- Album -->
+        {showAlbum && track.album && (
+          <div class="hidden md:block text-gray-400 text-sm truncate">{track.album}</div>
+        )}
+
+        <!-- Date Added -->
+        {showDateAdded && track.dateAdded && (
+          <div class="hidden md:block text-gray-400 text-sm truncate">{track.dateAdded}</div>
+        )}
+
+        <!-- Duration -->
+        <div class="text-gray-400 text-sm text-right">{track.duration}</div>
+      </div>
+    ))}
+  </div>
+</div>

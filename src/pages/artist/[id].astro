@@ -1,0 +1,144 @@
+---
+import AppLayout from '../../components/layout/AppLayout.astro';
+import ContentHeader from '../../components/content/ContentHeader.astro';
+import ActionButtons from '../../components/content/ActionButtons.astro';
+import Icon from '../../components/Icon.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+  ];
+}
+
+const { id } = Astro.params;
+
+// Mock artist data based on ID
+const artists: Record<string, any> = {
+  '1': {
+    name: 'The Weeknd',
+    image: 'https://picsum.photos/seed/artist1/300/300',
+    metadata: '95,234,567 monthly listeners',
+  },
+  '2': {
+    name: 'Dua Lipa',
+    image: 'https://picsum.photos/seed/artist2/300/300',
+    metadata: '78,456,123 monthly listeners',
+  },
+  '3': {
+    name: 'Ed Sheeran',
+    image: 'https://picsum.photos/seed/artist3/300/300',
+    metadata: '82,123,456 monthly listeners',
+  },
+};
+
+const artist = artists[id as string] || artists['1'];
+
+const popularTracks = [
+  { number: 1, title: 'Blinding Lights', plays: '3,456,789,012', duration: '3:20' },
+  { number: 2, title: 'Save Your Tears', plays: '2,123,456,789', duration: '3:35' },
+  { number: 3, title: 'Starboy', plays: '1,987,654,321', duration: '3:50' },
+  { number: 4, title: 'Die For You', plays: '1,567,890,123', duration: '4:20' },
+  { number: 5, title: 'The Hills', plays: '1,234,567,890', duration: '4:02' },
+];
+
+const albums = [
+  { title: 'After Hours', year: '2020', image: 'https://picsum.photos/seed/album1/300/300' },
+  { title: 'Starboy', year: '2016', image: 'https://picsum.photos/seed/album2/300/300' },
+  { title: 'Beauty Behind The Madness', year: '2015', image: 'https://picsum.photos/seed/album3/300/300' },
+  { title: 'Kiss Land', year: '2013', image: 'https://picsum.photos/seed/album4/300/300' },
+];
+---
+
+<AppLayout>
+  <ContentHeader
+    type="artist"
+    image={artist.image}
+    title={artist.name}
+    metadata={artist.metadata}
+  />
+
+  <ActionButtons />
+
+  <!-- Popular Tracks -->
+  <section class="px-6 mb-12">
+    <h2 class="text-white text-2xl font-bold mb-4">Popular</h2>
+    <div class="space-y-1">
+      {popularTracks.map((track) => (
+        <div class="grid grid-cols-[16px_1fr_auto_auto] gap-4 px-4 py-3 rounded hover:bg-white hover:bg-opacity-10 group items-center">
+          <div class="flex items-center justify-center">
+            <span class="text-gray-400 text-sm group-hover:hidden">{track.number}</span>
+            <button class="hidden group-hover:block" aria-label="Play">
+              <Icon name="play" class="w-4 h-4 text-white" />
+            </button>
+          </div>
+
+          <div class="min-w-0">
+            <div class="text-white text-base truncate">{track.title}</div>
+            <div class="text-gray-400 text-sm">{track.plays} plays</div>
+          </div>
+
+          <button class="opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Like">
+            <Icon name="heart" class="w-5 h-5 text-gray-400 hover:text-white" />
+          </button>
+
+          <div class="text-gray-400 text-sm">{track.duration}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Discography -->
+  <section class="px-6 mb-12">
+    <h2 class="text-white text-2xl font-bold mb-4">Discography</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      {albums.map((album) => (
+        <a
+          href={`/album/${album.year}`}
+          class="bg-spotify-light-gray p-4 rounded-lg hover:bg-opacity-80 transition-all group"
+        >
+          <div class="relative mb-4">
+            <img
+              src={album.image}
+              alt={album.title}
+              class="w-full aspect-square object-cover rounded mb-4"
+            />
+            <button
+              class="absolute bottom-2 right-2 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all shadow-xl"
+              aria-label="Play"
+            >
+              <Icon name="play" class="w-5 h-5 text-black ml-0.5" />
+            </button>
+          </div>
+
+          <h3 class="text-white font-semibold truncate mb-1">{album.title}</h3>
+          <p class="text-sm text-gray-400">{album.year} • Album</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="px-6 mb-12">
+    <h2 class="text-white text-2xl font-bold mb-4">About</h2>
+    <div class="flex items-start gap-6">
+      <img
+        src={artist.image}
+        alt={artist.name}
+        class="w-48 h-48 rounded-full object-cover"
+      />
+      <div>
+        <p class="text-gray-400 text-sm mb-4">
+          {artist.name} is a Canadian singer, songwriter, and record producer. Known for his sonic versatility and dark lyricism, his music explores themes of escapism, romance, and melancholia.
+        </p>
+        <div class="text-sm text-white mb-2">
+          <span class="font-bold text-4xl">{artist.metadata.split(' ')[0]}</span>
+          <span class="text-gray-400 ml-2">monthly listeners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="h-32"></div>
+</AppLayout>

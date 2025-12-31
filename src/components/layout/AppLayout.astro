@@ -1,0 +1,43 @@
+---
+// Main application layout with sidebar, top nav, and right sidebar
+import Layout from '../../layouts/Layout.astro';
+import HamburgerButton from '../HamburgerButton.astro';
+import Sidebar from '../Sidebar.astro';
+import TopNav from './TopNav.astro';
+import UserMenu from './UserMenu.astro';
+import RightSidebar from './RightSidebar.astro';
+import PlaybackBar from '../PlaybackBar.astro';
+---
+
+<Layout title="Spotify">
+  <div class="h-screen flex flex-col overflow-hidden">
+    <!-- Mobile hamburger button -->
+    <HamburgerButton />
+
+    <!-- Main content area -->
+    <div class="flex flex-1 overflow-hidden pb-24">
+      <!-- Left sidebar (drawer on mobile, fixed on desktop) -->
+      <Sidebar />
+
+      <!-- Main content area with top nav -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Navigation -->
+        <TopNav />
+
+        <!-- User Menu (positioned absolutely) -->
+        <UserMenu />
+
+        <!-- Page content (scrollable) -->
+        <main class="flex-1 overflow-y-auto bg-spotify-gray">
+          <slot />
+        </main>
+      </div>
+
+      <!-- Right sidebar (desktop only) -->
+      <RightSidebar />
+    </div>
+
+    <!-- Fixed playback bar at bottom -->
+    <PlaybackBar />
+  </div>
+</Layout>
